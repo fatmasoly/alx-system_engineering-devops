@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 # This script displays the content of the file /etc/passwd
 
+<<<<<<< HEAD
 my="/etc/passwd"
+=======
+file="/etc/passwd"
+>>>>>>> 8d7da8fec8196fc3afb934ba9ec7d95e11865bda
 while IFS= read -r line
 do
     echo "$line" | cut -d":" -f1,3,6

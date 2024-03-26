@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-# Update apt package index and install nginx with the "-y" flag to automatically confirm prompts
+# Update apt package index and install nginx with the
+# "-y" flag to automatically confirm prompts
 apt-get update
 apt-get install -y nginx
 
-# Configure nginx to listen on port 80 and return "Hello World!" at the root
+# Configure nginx to listen on port 80
 echo "server {
     listen 80 default_server;
     listen [::]:80 default_server;
@@ -21,4 +22,3 @@ echo "server {
 
 # Restart nginx without using systemctl
 nginx -s reload
-

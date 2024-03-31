@@ -1,24 +1,35 @@
 #!/usr/bin/env bash
-# Create a script to install and configure HAProxy on lb-01 server
-sudo apt-get -y update
+
+# Check if script is running with root privileges
+if [ "$(id -u)" -ne 0 ]; then
+    echo "Please run this script with sudo or as root."
+    exit 1
+fi
+
+# Update package repositories and install HAProxy
+apt-get -y update
 apt-get -y install haproxy
 
-# edit config file
-server_config=\
+# Define server configuration
+server_config='
 listen 529896-lb-01
-"
-        bind *:80
-        mode http
-        balance roundrobin
-	option httpclose
-	option forwardfor
-        server 529896-web-01 54.89.134.78:80 check
-        server 529896-web-02 52.87.215.154:80 check
-"
-echo "$server_config" | sudo tee -a /etc/haproxy/haproxy.cfg
+    bind *:80
+    mode http
+    balance roundrobin
+    option httpclose
+    option forwardfor
+    server 529896-web-01 100.25.17.146:80 check
+    server 529896-web-02 54.209.46.98:80 check
+'
 
-# enable haproxy to be started by init script
+# Create directory if it doesn't exist
+mkdir -p /etc/haproxy
 
-echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
+# Write server configuration to haproxy.cfg
+echo "$server_config" | tee /etc/haproxy/haproxy.cfg
 
-sudo service haproxy restart
+# Enable HAProxy service
+echo "ENABLED=1" | tee -a /etc/default/haproxy
+
+# Restart HAProxy service
+service haproxy restart

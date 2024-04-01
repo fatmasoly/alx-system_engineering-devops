@@ -1,6 +1,6 @@
 # Install Nginx
 package { 'nginx':
-  ensure => installed,
+  ensure => 'present',
 }
 
 firewall { '100 allow http':
@@ -41,4 +41,15 @@ service { 'nginx':
   enable    => true,
   subscribe => File['/var/www/html/index.html', '/var/www/html/404.html'],
   require   => Package['nginx'],
+}
+exec {'update':
+  command => '/usr/bin/apt-get update',
+}
+-> file_line { 'http_header':
+  path  => '/etc/nginx/nginx.conf',
+  match => 'http {',
+  line  => "http {\n\tadd_header X-Served-By \"${hostname}\";",
+}
+-> exec {'run':
+  command => '/usr/sbin/service nginx restart',
 }

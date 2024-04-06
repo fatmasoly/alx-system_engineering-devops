@@ -7,6 +7,7 @@ global
     user haproxy
     group haproxy
     daemon
+    tune.ssl.default-dh-param 2048
 
 defaults
     log     global
@@ -19,7 +20,7 @@ defaults
 
 frontend http_front
     bind *:80
-    bind *:443 ssl crt /etc/ssl/certs/fatmasoly.pem
+    bind *:443 ssl crt /etc/haproxy/certs/www.fatmasoly.tech.pem
     default_backend http_back
 
 backend http_back

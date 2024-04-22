@@ -1,6 +1,10 @@
 #!/usr/bin/python3
-"""Script to fetch user data and todo list from a REST API
-and write it to a CSV file."""
+"""
+Module to interact with a REST API and manipulate data
+
+"""
+
+
 import csv
 import requests
 import sys

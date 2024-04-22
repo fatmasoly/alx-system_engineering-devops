@@ -4,13 +4,14 @@
 import requests
 import sys
 
+if __name__ == "__main__":
 
-url = "https://jsonplaceholder.typicode.com/users"
+    url = "https://jsonplaceholder.typicode.com/users"
 user_id = int(sys.argv[1])
 user = requests.get("{}users/{}".format(url, user_id)).json()
 todos = requests.get("{}todos?userId={}".format(url, user_id)).json()
 
-filter_todo = list(filter(lambda x: x.get('completed') is True, todos)).json()
+filter_todo = [todo for todo in todos if todo.get('completed') is True]
 
 print("Employee {} is done with tasks({}/{}):"
       .format(user.get('name'),
@@ -18,6 +19,3 @@ print("Employee {} is done with tasks({}/{}):"
               len(todos)))
 
 [print("\n".join("\t {}".format(todo.get('title')) for todo in filter_todo))]
-
-
-if __name__ == "__main__":

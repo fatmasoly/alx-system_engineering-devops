@@ -7,7 +7,8 @@ import sys
 if __name__ == "__main__":
 
     url = "https://jsonplaceholder.typicode.com/users"
-user_id = int(sys.argv[1])
+user_id = sys.argv[1]
+
 user = requests.get("{}users/{}".format(url, user_id)).json()
 todos = requests.get("{}todos?userId={}".format(url, user_id)).json()
 
@@ -18,4 +19,4 @@ print("Employee {} is done with tasks({}/{}):"
               len(filter_todo),
               len(todos)))
 
-[print("\n".join("\t {}".format(todo.get('title')) for todo in filter_todo))]
+[print("\t {}".format(todo.get('title'))) for todo in filter_todo]

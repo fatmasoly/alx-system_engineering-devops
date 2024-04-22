@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""export data in the CSV format."""
+"""Script to fetch user data and todo list from a REST API
+and write it to a CSV file."""
 import csv
 import requests
 import sys

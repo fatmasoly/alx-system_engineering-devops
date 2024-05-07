@@ -9,7 +9,6 @@ def number_of_subscribers(subreddit):
     if subreddit is None:
         return 0
     url = f"https://www.reddit.com/r/{subreddit}/about.json"
-    headers = {'User-Agent': 'Mozilla/5.0'}
     response = requests.get(url, headers={'User-agent': 'Mozilla/5.0'})
     if response.status_code == 200:
         try:

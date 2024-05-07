@@ -7,8 +7,18 @@ import requests
 def number_of_subscribers(subreddit):
     """Returns the number of subscribers for a given subreddit"""
     url = f"https://www.reddit.com/r/{subreddit}/about.json"
-    headers = {'User-agent': 'Mozilla/5.0'}
+    headers = {"User-Agent": "Mozilla/5.0"}
     response = requests.get(url, headers=headers)
-    if response.status_code != 200:
+    if response.status_code == 200:
+        data = response.json()
+        subscribers = data["data"]["subscribers"]
+        return subscribers
+    else:
         return 0
-    return response.json().get('data').get('subscribers')
+
+    # url = f"https://www.reddit.com/r/{subreddit}/about.json"
+    # headers = {'User-agent': 'Mozilla/5.0'}
+    # response = requests.get(url, headers=headers)
+    # if response.status_code != 200:
+    #     return 0
+    # return response.json().get('data').get('subscribers')
